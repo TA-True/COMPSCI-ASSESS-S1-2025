@@ -1,0 +1,4 @@
+Final week:
+Stage 1: integrate a lagged fibbonacci generator, Monday.
+Stage 2: finish decoder, Tuesday to wednesday
+stage 3: write report, Thursday to Friday
