@@ -1,5 +1,4 @@
 def rollindecypher(cypher, startshift, encodedmessage):
-    currentshift = cypher.index(startshift)
     currentshift = cypher.index(startshift)#Index to convert letter to number
     cypherlen = len(cypher)
     msglen = len(encodedmessage)
@@ -24,7 +23,6 @@ def rollindecypher(cypher, startshift, encodedmessage):
         gen1n = fibbogen[gen1n]
         message -= gen1n
         message += 1
-        while message < (-1):
         while message < 0:#Not underflow
             message = cypherlen + message
         fibbopend2 = message#ALSO STORING
@@ -50,7 +48,6 @@ def rollincypher(cypher, startshift, message):
     i = 0
     while i < msglen:
         numberfied = cypher.index(message[i]) 
-        gen1n = currentshift
         gen1n = currentshift#similar fibbonacci trickery
         genlen = len(fibbogen)
         while gen1n > genlen:
@@ -59,7 +56,6 @@ def rollincypher(cypher, startshift, message):
         gen1n = fibbogen[gen1n]
         fibbogen.append(numberfied)#updating
         nextshift = numberfied
-        numberfied += gen1n
         numberfied += gen1n#shifting the number
         while cypherlen < numberfied:
             numberfied -= cypherlen
@@ -115,39 +111,44 @@ else:
     while possicypher == False:
         print("The cypher can only take in single characters")
         print("The cypher breaks when spaces are used, it is recommended that you use '_' instead.")
-    print('To stop the cypher creation process submit "COMPLETED" inn all caps to the input question.')
-    cypheraddition = input("What is the next letter/symbol you want to put into the cypher: ")
+        print("Characters cannot appear twice in the cypher!")
+        cypher = input("Please enter each part of the cypher: ")
+        cypher.split()
+        possicypher = True
+        i = 0
+        cypherlist = []
+        while i < len(cypher):
+            if cypher[i] == " " or cypher[i] in cypherlist:
+                possicypher = False
+                print("This Cypher has an error")
+            cypherlist.append(cypher[i])
+            i += 1
 messagework = False
-while messagework == False:
-    message = input("What is the desired message to be encoded: ")
-    messagework = True
+while messagework == False:#tries until valid
+    message = input("What is the desired message to be encoded/decoded: ")
+    messagework = True#base is good
     i = 0
-    while i < len(message):
+    while i < len(message):#checks iif any non-cypher letters and denies if there is
         if message[i] not in cypher:
             messagework = False
             print("Your message may only contain characters from the cypher.")
             print("The Cypher is made up of these characters: " + cypher)
         i += 1
 startshift = "Null"
-while startshift not in cypher:
-    startshift = input("What would you like to have the rolling cypher start off with as a shift (choose a part of the cypher): ")
-scrambled = input('Would you like to put the encoded message through a horizontal shift put "Yes" if you do: ')
-encodedmsg = rollincypher(cypher, startshift, message)
-print(encodedmsg)
-print(cypher)
-if scrambled == "Yes":
-    horizshift = int(input("What number will you be shifting the message by? "))
-    encodedmsg = scramblecypher(encodedmsg, horizshift)
-decodedmsg = rollindecypher(cypher, startshift, encodedmsg)
-i = 0
-encodedstring = ""
-while i < len(encodedmsg):
-    encodedstring += encodedmsg[i]
-    i += 1
-print(encodedmsg)
-decodedstring = ""
+decode_or_encode = input("Do you want to decode a message or encode a message? Put a D for Decode, an E for Encode, or a B for both (Encoding then Decoding): ")#choose function
+if decode_or_encode == "E" or decode_or_encode == "B":#if encoding
+    encoded = True
+    while startshift not in cypher:
+        startshift = input("What would you like to have the rolling cypher start off with as a shift (choose a part of the cypher): ")
     scrambled = input('Would you like to put the encoded message through a horizontal shift put "Yes" if you do: ')
+    encodedmsg = rollincypher(cypher, startshift, message)
+    if scrambled == "Yes":#offered scrambling
+        horizshift = int(input("What number will you be shifting the message by? "))
+        encodedmsg = scramblecypher(encodedmsg, horizshift)
+    if decode_or_encode == "B":
         message = encodedmsg
+if decode_or_encode == "D" or decode_or_encode == "B":#if decoding
+    decoded = True
     known_start = input("Do you know the starting shift? Put the respective letter if yes: ")#to use if startshift is known
     if known_start in cypher:#uses startshift
         startshift = known_start
