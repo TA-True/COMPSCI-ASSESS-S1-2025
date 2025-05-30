@@ -9,7 +9,7 @@ def rollindecypher(cypher, startshift, encodedmessage):
         i += 1
     encodedmessage = code
     encodedmessage.split
-    fibbogen = [1, 2, 3]#the starting numbers for the gen
+    fibbogen = [1, 2, 3, 4]#the starting numbers for the gen
     decoded = []
     i = 0
     while i < msglen:
@@ -41,7 +41,7 @@ def rollincypher(cypher, startshift, message):
     currentshift = cypher.index(startshift)
     cypherlen = len(cypher)
     message.split
-    fibbogen = [1, 2, 3]
+    fibbogen = [1, 2, 3, 4]
     encoded = []
     msglen = len(message)
     nextshift = 0
@@ -109,9 +109,8 @@ if nontedious_cyper != "Yes":
     cypheraddition = input("What is the next letter/symbol you want to put into the cypher: ")
 else:
     while possicypher == False:
-        print("The cypher can only take in single characters")
-        print("The cypher breaks when spaces are used, it is recommended that you use '_' instead.")
-        print("Characters cannot appear twice in the cypher!")
+        print("Warning: The cypher breaks when spaces are used, it is recommended that you use '_' instead.")
+        print("Warning: Characters cannot appear twice in the cypher!")
         cypher = input("Please enter each part of the cypher: ")
         cypher.split()
         possicypher = True
